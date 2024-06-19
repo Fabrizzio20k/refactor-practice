@@ -12,17 +12,20 @@ class CalculaGanador:
                 data.append(fila)
         return data
 
+    # Refactorización: Extracción de método para validar el DNI
     def es_dni_valido(self, dni):
-        # Extracción de método para validar el DNI
         return len(dni) == 8 and dni.isdigit()
 
+    # Refactorización: Renombramiento de métodos
     def calcular_votos_validos(self, data):
+        # Refactorización: Renombramiento de variables
         votos_por_candidato = {}
         total_votos_validos = 0
 
         for fila in data:
             region, provincia, distrito, dni, candidato, esvalido = fila
 
+            # Refactorización: Simplificación de condicionales
             if not self.es_dni_valido(dni):
                 continue  # Ignorar votos con DNI inválido
 
@@ -35,13 +38,12 @@ class CalculaGanador:
 
         return votos_por_candidato, total_votos_validos
 
+    # Refactorización: Extracción de método para obtener el ganador
     def obtener_ganador(self, votos_por_candidato, total_votos_validos):
-        # Extracción de método para obtener el ganador
         if total_votos_validos == 0:
             return []
 
-        ordenado = sorted(votos_por_candidato.items(),
-                          key=lambda item: item[1], reverse=True)
+        ordenado = sorted(votos_por_candidato.items(), key=lambda item: item[1], reverse=True)
 
         for candidato, votos in ordenado:
             if votos > total_votos_validos / 2:
@@ -55,8 +57,7 @@ class CalculaGanador:
             return []
 
     def calcularganador(self, data):
-        votos_por_candidato, total_votos_validos = self.calcular_votos_validos(
-            data)
+        votos_por_candidato, total_votos_validos = self.calcular_votos_validos(data)
         return self.obtener_ganador(votos_por_candidato, total_votos_validos)
 
 

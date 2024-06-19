@@ -1,7 +1,7 @@
 import pytest
 from app import CalculaGanador
 
-
+## Testear la clase CalculaGanador
 def test_dni_valido():
     c = CalculaGanador()
     assert c.es_dni_valido('12345678') == True
